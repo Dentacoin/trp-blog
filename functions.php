@@ -20,8 +20,7 @@ function blog_setup() {
     register_nav_menus( array(
         'primary' => 'Primary Menu',
         'footer' => 'Footer Menu',
-    ) );
-
+    ));
 }
 add_action( 'after_setup_theme', 'blog_setup' );
 
@@ -30,6 +29,7 @@ function wpdocs_custom_excerpt_length( $length ) {
     return 37;
 }
 add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
+
 
 function get_cat_slug($cat_id) {
 	$cat_id = (int) $cat_id;
@@ -121,28 +121,28 @@ function cvf_demo_pagination_load_posts() {
         $count = $wpdb->get_var($wpdb->prepare("
             SELECT COUNT(ID) FROM " . $table_name . " WHERE post_type = 'post' AND post_status = 'publish'", array() ) );
 
-        /**
-         * Use WP_Query:
-         *
-        $all_blog_posts = new WP_Query(
-            array(
-                'post_type'         => 'post',
-                'post_status '      => 'publish',
-                'orderby'           => 'post_date',
-                'order'             => 'DESC',
-                'posts_per_page'    => $per_page,
-                'offset'            => $start
-            )
-        );
+        // /**
+        //  * Use WP_Query:
+        //  *
+        // $all_blog_posts = new WP_Query(
+        //     array(
+        //         'post_type'         => 'post',
+        //         'post_status '      => 'publish',
+        //         'orderby'           => 'post_date',
+        //         'order'             => 'DESC',
+        //         'posts_per_page'    => $per_page,
+        //         'offset'            => $start
+        //     )
+        // );
 
-        $count = new WP_Query(
-            array(
-                'post_type'         => 'post',
-                'post_status '      => 'publish',
-                'posts_per_page'    => -1
-            )
-        );
-        */
+        // $count = new WP_Query(
+        //     array(
+        //         'post_type'         => 'post',
+        //         'post_status '      => 'publish',
+        //         'posts_per_page'    => -1
+        //     )
+        // );
+        // */
 
         // Loop into all the posts
         foreach($all_blog_posts as $key => $post): 
@@ -258,8 +258,6 @@ function cvf_demo_pagination_load_posts() {
     exit();
 }
 
-
-
 //stops the WP api requests for retrieving the users data 
 add_filter('rest_endpoints', function($endpoints){ 
     if (isset( $endpoints['/wp/v2/users'])) {
@@ -278,6 +276,5 @@ add_action( 'send_headers', 'my_headers' );
 function my_headers() {
     header('X-Frame-Options: DENY');
 }
-
 
 ?>
